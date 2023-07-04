@@ -2,6 +2,7 @@ body {
     background-color: #14192e;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 .slider-container {
@@ -15,4 +16,35 @@ body {
 
 .slider-arrow {
     font-size: 36px;
+}
+
+.NFT-Card {
+    color: white;
+    background-color: rgb(40, 44, 75);
+    height: 500px;
+}
+
+.custom-card {
+    width: 300px;
+    height: 400px;
+    /*margin-bottom: 10px;*/
+    /*margin-right: 10px; !* Adjust the value as desired *!*/
+    padding: 0 15px;
+    position: relative;
+    border-radius: 12px;
+    opacity: 1;
+    padding: 0 7.5px; /* Adjust the value as needed */
+
+
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.main-card1 {
+    /*display: flex;*/
+    margin-right: 0px;
+    margin-left: 5px;
 }

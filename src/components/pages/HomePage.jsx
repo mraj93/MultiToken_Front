@@ -3,6 +3,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../CSS/homepage.css';
+import Card from 'react-bootstrap/Card';
+
 
 // import Banner from '../images/NFT.png';
 
@@ -54,7 +56,45 @@ const HomePage = () => {
                     </div>
                 </Slider>
             </div>
-            {/*</div>*/}
+
+                <div className="latest-NFT-title">
+                    Latest NFT
+                </div>
+
+                <div className="card my-4 NFT-Card">
+                    {/*<img src="card-image.jpg" className="card-img-top" alt="Card Image" />*/}
+                    <div className="card-body">
+                        {/*<h5 className="card-title">Create NFT marketplace for your community</h5>*/}
+                        {/*<p className="card-text">Powered by Rarible Protocol</p>*/}
+                        {/*<a href="#" className="btn btn-primary">Learn More</a>*/}
+
+                        <div className="row mt-4 main-card1">
+                            <div className="col-lg-4 col-md-6 main-card">
+                                <div className="card small-card custom-card">
+                                    <img src="nft-image1.jpg" className="card-img-top" alt="NFT Image" />
+                                    <div className="card-body">
+                                        <h6 className="card-title">NFT Title 1</h6>
+                                        <p className="card-text">Description of NFT 1</p>
+                                        <a href="#" className="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-lg-4 col-md-6 main-card">
+                                <div className="card small-card custom-card">
+                                    <img src="nft-image2.jpg" className="card-img-top" alt="NFT Image" />
+                                    <div className="card-body">
+                                        <h6 className="card-title">NFT Title 2</h6>
+                                        <p className="card-text">Description of NFT 2</p>
+                                        <a href="#" className="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
         </>
     );
 };

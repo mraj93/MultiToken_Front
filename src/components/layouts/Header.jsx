@@ -23,14 +23,14 @@ const Header = () => {
                 <nav className="nav">
                     <ul className="nav-links">
                         <li className="mx-3">
-                            <Link to="/">Explore</Link>
+                            <label>Wallet</label>
                         </li>
                         <li
                             className="dropdown mx-3"
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <Link to="/create">Create</Link>
+                            <label>Create</label>
                             {showOptions && (
                                 <ul className="dropdown-menu">
                                     <li>
@@ -46,7 +46,10 @@ const Header = () => {
                             )}
                         </li>
                         <li className="mx-3">
-                            <Link to="/my-items">My Items</Link>
+                            <label>My items</label>
+                        </li>
+                        <li className="mx-3">
+                            <Link to="/">Homepage</Link>
                         </li>
                     </ul>
                 </nav>
