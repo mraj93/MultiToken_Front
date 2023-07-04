@@ -1,0 +1,18 @@
+body {
+    background-color: #14192e;
+    margin: 0;
+    padding: 0;
+}
+
+.slider-container {
+    margin-top: 20px;
+}
+
+.slider-image {
+    width: 100%;
+    height: 500px;
+}
+
+.slider-arrow {
+    font-size: 36px;
+}

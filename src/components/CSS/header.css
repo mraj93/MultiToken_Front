@@ -1,33 +1,48 @@
+body {
+    margin: 0;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    /*background-color: cornflowerblue;*/
-    background-color: #007bff;
+    /*background-color: #14192e;*/
+    background-color: black;
     color: #fff;
 }
 
-.logo img {
-    max-width: 100px;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links {
-    list-style: none;
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links li {
     margin-right: 20px;
 }
 
-.nav-links li a {
-    color: #fff;
-    text-decoration: none;
+.nav-links li:last-child {
+    margin-right: 0;
 }
 
-.nav-links li a:hover {
-    color: #007bff;
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .user-profile {
@@ -35,23 +50,69 @@
     align-items: center;
 }
 
+.user-info {
+    margin-right: 10px;
+}
+
 .username {
-    font-weight: bold;
-}
-
-.wallet-address {
-    font-size: 12px;
-}
-
-.connect-wallet {
-    margin-left: auto;
+    margin-right: 5px;
 }
 
 .connect-wallet-button {
     padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #fff;
+    color: #111;
     text-decoration: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-right: 150px;
+}
+
+.connect-wallet {
+    margin-left: 5px; /* Adjust the value as needed */
+}
+
+.dropdown {
+    position: relative;
+}
+
+/*.dropdown .dropdown-menu {*/
+/*    font-family: 'IBM Plex Sans', sans-serif;*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    top: 100%;*/
+/*    left: 0;*/
+/*    background-color: darkkhaki;*/
+/*    padding: 8px;*/
+/*    border: 1px solid #ccc;*/
+/*}*/
+
+.dropdown .dropdown-menu {
+    border-top: none; /* Remove the existing border from the top */
+    border-bottom: 4px solid #000; /* Add a border to the bottom */
+    color: hsla(0, 0%, 100%, .702);
+    font-size: .875rem;
+    font-weight: 500;
+    margin: auto;
+    padding: 30px 15px 24px;
+    transition: border-color .15s ease-in-out;
+    width: 200px;
+    height: 150px;
+    background-color:white;
+
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 4px 8px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f2f2f2;
 }
