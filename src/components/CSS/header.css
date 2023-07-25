@@ -150,12 +150,9 @@ user-info {
 }
 
 .account-info {
-    margin: 0 5px;
+    /*margin-left: 100px;*/
+    margin: 0.5px;
     font-size: 16px;
-}
-
-.account-info {
-    font-size: 20px;
     font-weight: bold;
     color: lightslategrey;
 }

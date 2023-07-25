@@ -174,7 +174,7 @@ const Header = () => {
                         <div className="user-info">
                             <div className="user-details">
                                 <div className="account-address">
-                                    <FaEthereum size={20} color="currentColor" style={{ marginRight: '5px' }} />
+                                    <FaEthereum className="mxy-0" size={20} color="currentColor" style={{ marginRight: '5px' }} />
                                     <p className="account-info">{account}</p>
                                     <FaCopy
                                         className="copy-icon my-2 mb-3"
@@ -182,7 +182,7 @@ const Header = () => {
                                     />
                                     {isCopied && <span>Copied</span> }
                                 </div>
-                                <p className=" mx-4 mt-1 account-info"> {balance} ETH</p>
+                                <p className="mx-4 mt-1 account-info"> {balance} ETH</p>
                             </div>
                             <button className="btn-primary btn logout-button" onClick={disconnectWallet}>
                                 Logout
