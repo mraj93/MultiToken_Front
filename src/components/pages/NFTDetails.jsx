@@ -124,9 +124,7 @@ const NFTDetail = () => {
                     </div>
                 ))}
             </div>
-
         </div>
-
         </>
     );
 };

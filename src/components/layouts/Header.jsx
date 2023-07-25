@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import '../CSS/header.css';
+import {FaCopy, FaEthereum } from "react-icons/fa";
+import { ethers } from "ethers";
 
 const Header = () => {
     const [showOptions, setShowOptions] = useState(false);
     const [connected, setConnected] = useState(false);
     const [account, setAccount] = useState(null);
+    const [balance, setBalance] = useState(null);
     const [isConnecting, setIsConnecting] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -17,34 +21,33 @@ const Header = () => {
     };
 
     const connectWallet = async () => {
-        if (isConnecting) return;
-
         try {
-            setIsConnecting(true);
-
             if (window.ethereum) {
-                const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
-                handleAccountsChanged(accounts);
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                setConnected(true);
+                setAccount(accounts[0]);
+                localStorage.setItem('userAccount', accounts[0]);
             } else {
                 alert('Please install MetaMask to connect your wallet.');
-                setIsConnecting(false);
             }
         } catch (error) {
             console.error('Wallet connection error', error);
-            setIsConnecting(false);
         }
     };
 
-    const handleAccountsChanged = (accounts) => {
+    const handleAccountsChanged = async (accounts) => {
         if (accounts.length === 0) {
             setConnected(false);
             setAccount(null);
+            setBalance(null);
         } else {
             setConnected(true);
             setAccount(accounts[0]);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const balance = await provider.getBalance(accounts[0]);
+            setBalance(ethers.utils.formatEther(balance));
         }
-
-        setIsConnecting(false); // Reset isConnecting after the connection process is completed
+        setIsConnecting(false);
     };
 
     const disconnectWallet = async () => {
@@ -53,22 +56,60 @@ const Header = () => {
                 window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
                 setConnected(false);
                 setAccount(null);
+                localStorage.removeItem('userAccount');
                 alert('Logout Success');
             }
         } catch (error) {
-            window.alert('Logout failed');
+            alert('Logout failed');
             console.error('Logout failed', error);
         }
     };
 
     useEffect(() => {
         if (window.ethereum) {
+            const handleAccountsChanged = (accounts) => {
+                if (accounts.length === 0) {
+                    setConnected(false);
+                    setAccount(null);
+                    localStorage.removeItem('userAccount');
+                } else {
+                    setConnected(true);
+                    setAccount(accounts[0]);
+                    localStorage.setItem('userAccount', accounts[0]);
+                }
+            };
             window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+            const fetchBalance = async () => {
+                if (account) {
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const balance = await provider.getBalance(account);
+                    setBalance(ethers.utils.formatEther(balance));
+                }
+            };
+            fetchBalance();
+
             return () => {
                 window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
             };
         }
+    }, [account])
+
+    useEffect(() => {
+        const storedAccount = localStorage.getItem('userAccount');
+        if (storedAccount) {
+            setConnected(true);
+            setAccount(storedAccount);
+        }
     }, []);
+
+    const copyOwnerToClipboard = () => {
+        if (account) {
+            navigator.clipboard.writeText(account);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 1500);
+        }
+    };
 
     return (
         <>
@@ -131,17 +172,29 @@ const Header = () => {
                 <div className="user-container">
                     {connected ? (
                         <div className="user-info">
-                            <p className="my-3 mx-5 account-info">{account}</p>
-                            <button className="logout-button" onClick={disconnectWallet}>Logout</button>
+                            <div className="user-details">
+                                <div className="account-address">
+                                    <FaEthereum size={20} color="currentColor" style={{ marginRight: '5px' }} />
+                                    <p className="account-info">{account}</p>
+                                    <FaCopy
+                                        className="copy-icon my-2 mb-3"
+                                        onClick={copyOwnerToClipboard}
+                                    />
+                                    {isCopied && <span>Copied</span> }
+                                </div>
+                                <p className=" mx-4 mt-1 account-info"> {balance} ETH</p>
+                            </div>
+                            <button className="btn-primary btn logout-button" onClick={disconnectWallet}>
+                                Logout
+                            </button>
                         </div>
                     ) : (
                         <div className="connect-wallet-container">
-                            <button className="connect-wallet-button" onClick={connectWallet}>
-                                Connect Wallet
-                            </button>
+                            <button className="connect-wallet-button" onClick={connectWallet} disabled={connected}>Connect Wallet</button>
                         </div>
                     )}
                 </div>
+
             </header>
         </>
     );

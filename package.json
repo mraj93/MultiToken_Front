@@ -50,6 +50,8 @@
     ]
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.0.1"
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@svgr/webpack": "^8.0.1",
+    "ethers": "^5.0.0"
   }
 }
