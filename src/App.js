@@ -6,7 +6,13 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import HomePage from "./components/pages/HomePage";
 import ERC721Create from "./components/pages/ERC721Create";
-import './global.css';
+import ERC1155Create from "./components/pages/ERC721Create";
+import NFTMarket from "./components/pages/NFTMarket";
+import GameTokenMarket from "./components/pages/GameTokenMarket";
+import NFTDetails from "./components/pages/NFTDetails";
+
+// import './global.css';
+// import '../src/components/CSS/globalStyles.css';
 
 const App = () => {
     return (
@@ -15,6 +21,10 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/create/NFT" element={<ERC721Create />} />
+                <Route path="/create/ERC1155" element={<ERC1155Create />} />
+                <Route path="/nftmarket" element={<NFTMarket />} />
+                <Route path="/gametokemarket" element={<GameTokenMarket />} />
+                <Route path="/nftmarket/details/:name" element={<NFTDetails />} />
             </Routes>
         </Router>
     );

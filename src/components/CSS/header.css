@@ -11,6 +11,9 @@ body {
     background-color: black;
     color: #fff;
 }
+.nav-links li {
+    font-size: 20px;
+}
 
 .logo {
     font-size: 24px;
@@ -34,6 +37,12 @@ body {
     margin-right: 20px;
 }
 
+.nav-links label {
+    font-size: 20px;
+    font-weight: bold;
+    color: grey;
+}
+
 .nav-links li:last-child {
     margin-right: 0;
 }
@@ -43,11 +52,6 @@ body {
     color: #fff;
     font-size: 16px;
     font-weight: 500;
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
 }
 
 .user-info {
@@ -69,27 +73,15 @@ body {
 }
 
 .connect-wallet {
-    margin-left: 5px; /* Adjust the value as needed */
+    margin-left: 5px;
 }
 
 .dropdown {
     position: relative;
 }
-
-/*.dropdown .dropdown-menu {*/
-/*    font-family: 'IBM Plex Sans', sans-serif;*/
-/*    display: none;*/
-/*    position: absolute;*/
-/*    top: 100%;*/
-/*    left: 0;*/
-/*    background-color: darkkhaki;*/
-/*    padding: 8px;*/
-/*    border: 1px solid #ccc;*/
-/*}*/
-
 .dropdown .dropdown-menu {
-    border-top: none; /* Remove the existing border from the top */
-    border-bottom: 4px solid #000; /* Add a border to the bottom */
+    border-top: none;
+    border-bottom: 4px solid #000;
     color: hsla(0, 0%, 100%, .702);
     font-size: .875rem;
     font-weight: 500;
@@ -101,7 +93,6 @@ body {
     background-color:white;
 
 }
-
 .dropdown:hover .dropdown-menu {
     display: block;
 }
@@ -115,4 +106,55 @@ body {
 
 .dropdown-menu a:hover {
     background-color: #f2f2f2;
+}
+
+.connect-wallet-button {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.metamaks-button {
+    width: 30px;
+    height: 30px;
+}
+
+.dropdown-menu li{
+    font-size: 18px;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 40%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.connect-wallet-container {
+    display: flex;
+    align-items: center;
+}
+
+.connect-wallet-container .logout-button {
+    visibility: hidden;
+}
+
+.user-info .logout-button {
+    visibility: visible;
+}
+
+.connect-wallet-button {
+    display: flex;
+    justify-content: end;
+    font-size: 18px;
+}
+
+.account-info {
+    font-size: 20px;
+    font-weight: bold;
+    color: lightslategrey;
 }
