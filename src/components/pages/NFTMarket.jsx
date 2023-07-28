@@ -15,39 +15,39 @@ const NFTMarket = () => {
             price: '0.08 ETH',
         },
         {
-            // imageSrc: 'https://assets.raribleuserdata.com/prod/v1/image/t_image_preview/aHR0cHM6Ly9zMy51cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9hc3NldHMuYXRzbmZ0LmlvL3JvdGEvaW1hZ2VzLzg0NTcucG5n',
+
             imageSrc: 'https://lh3.googleusercontent.com/Y7LSMwSU8zdtyMPO4mEPiEZc4ktinvvIESDyfgQAEVXv2vdNOZ2VjTyNu6SjSamDNRNfRopf9yrtNvPEf7T5Cnm8I8ISqVpDBAeZ=s400  ',
             title: 'NFT 2',
             owner: 'User 1',
             price: '0.05 ETH',
         },
         {
-            // imageSrc: "https://lh3.googleusercontent.com/xfJZPsyXsUtQZIzUZO5-hGnwGOrdS-ne4jEnbMhN5OzP1idb58Fa5ELTLk5udqoNJSIaY02XH_fugPsqL-169szYxdLAkAIKh3E=s400",
+
             imageSrc : 'https://lh3.googleusercontent.com/gphCKjsKV-h9bnU7p76sawMuECbc2fyGYIkhyGUJqJDFDgbeMOOFA-Pj47weFe9iBQplmk4SK6bxfVC5YBnnVa2wikjzxq9YSTc=s400',
             title: 'NFT 3',
             owner: 'User 2',
             price: '0.08 ETH',
         },
         {
-            // imageSrc: "https://lh3.googleusercontent.com/dtV6C20zy7MxOgfsbKmTvx6Fnlz5OG6SAujgYAZjfJTgQQEt4frHLnl1Yyv8pJiP05EBDGCmb3A19ny2JVniW7ewz9-YCNlkEko=s400",
+
             imageSrc: 'https://lh3.googleusercontent.com/r-BvuH7oA38uTq70mUyeYsJSX1hiPINcf1-rLqZjLy_WihwT8agq4RSXXimxgNqbU-YURV5212PJq6gUdoApEU_VJvCdPahpuZfz=s400',
             title: 'NFT 4',
             owner: 'User 2',
             price: '0.08 ETH',
         },{
-            // imageSrc: "https://lh3.googleusercontent.com/dtV6C20zy7MxOgfsbKmTvx6Fnlz5OG6SAujgYAZjfJTgQQEt4frHLnl1Yyv8pJiP05EBDGCmb3A19ny2JVniW7ewz9-YCNlkEko=s400",
+
             imageSrc: 'https://lh3.googleusercontent.com/r-BvuH7oA38uTq70mUyeYsJSX1hiPINcf1-rLqZjLy_WihwT8agq4RSXXimxgNqbU-YURV5212PJq6gUdoApEU_VJvCdPahpuZfz=s400',
             title: 'NFT 4',
             owner: 'User 2',
             price: '0.08 ETH',
         },{
-            // imageSrc: "https://lh3.googleusercontent.com/dtV6C20zy7MxOgfsbKmTvx6Fnlz5OG6SAujgYAZjfJTgQQEt4frHLnl1Yyv8pJiP05EBDGCmb3A19ny2JVniW7ewz9-YCNlkEko=s400",
+
             imageSrc: 'https://lh3.googleusercontent.com/r-BvuH7oA38uTq70mUyeYsJSX1hiPINcf1-rLqZjLy_WihwT8agq4RSXXimxgNqbU-YURV5212PJq6gUdoApEU_VJvCdPahpuZfz=s400',
             title: 'NFT 4',
             owner: 'User 2',
             price: '0.08 ETH',
         },{
-            // imageSrc: "https://lh3.googleusercontent.com/dtV6C20zy7MxOgfsbKmTvx6Fnlz5OG6SAujgYAZjfJTgQQEt4frHLnl1Yyv8pJiP05EBDGCmb3A19ny2JVniW7ewz9-YCNlkEko=s400",
+
             imageSrc: 'https://lh3.googleusercontent.com/r-BvuH7oA38uTq70mUyeYsJSX1hiPINcf1-rLqZjLy_WihwT8agq4RSXXimxgNqbU-YURV5212PJq6gUdoApEU_VJvCdPahpuZfz=s400',
             title: 'NFT 4',
             owner: 'User 2',
@@ -81,7 +81,7 @@ const NFTMarket = () => {
                         <div className="explore-page mx-3 my-3">
                             <InfiniteScroll
                                 dataLength={displayedData.length}
-                                // next={loadMoreData}
+
                                 hasMore={displayedData.length < nftData.length}
                                 loader={<h4>Loading...</h4>}
                                 endMessage={<h4

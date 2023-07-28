@@ -1,15 +1,9 @@
-/*body {*/
-/*    !*background-color: yellow;*!*/
-/*    !*background-color: #14192e;*!*/
-/*    color: white;*/
-/*}*/
-
 .mint-nft-page {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     height: 100vh;
-    padding-top: 50px; /* Adjust the desired spacing */
+    padding-top: 50px;
 }
 .content {
     text-align: center;
@@ -19,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 50px; /* Add space between form groups */
+    margin-bottom: 50px;
 }
 
 .input-field {
@@ -29,10 +23,8 @@
 }
 
 .textarea {
-    /* add desired styles */
     display: flex;
     width: 500px;
-    /*margin-bottom: 10px;*/
 }
 
 .textarea-field {
@@ -42,7 +34,6 @@
 }
 
 .mint-button {
-    /* add desired styles */
     margin-top: 20px;
     width: 200px;
     height: 50px;
@@ -64,7 +55,6 @@
 
 .image-upload {
     border: 2px dashed rgba(255, 255, 255);
-    /*min-height: 150px;*/
     padding: 32px 60px;
     position: relative;
     border-radius: 16px;

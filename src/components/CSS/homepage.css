@@ -37,19 +37,19 @@ body {
     cursor: pointer;
 }
 
-/* card layout */
-/* YourSliderStyles.css */
 
-/* Slider container */
+
+
+
 
 .nft-marketplace-section {
-    /*background-color: #f7f7f7;*/
+
     background-color: skyblue;
     padding: 50px 0;
     color: #000;
     border-radius: 10px;
     overflow: hidden;
-    position: relative; /* Add relative positioning */
+    position: relative;
 }
 
 .container {
@@ -60,7 +60,7 @@ body {
 
 .card-wrapper {
     display: flex;
-    justify-content: center; /* Center the card container */
+    justify-content: center;
     overflow: hidden;
 }
 
@@ -98,14 +98,14 @@ p {
 
 .card-container {
     display: flex;
-    /*flex-wrap: nowrap; !* Ensures cards stay in one row *!*/
-    /*justify-content: space-between;*/
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
-    padding-bottom: 20px; /* Add a bit of padding at the bottom for aesthetics */
+
+
+    overflow-x: auto;
+    padding-bottom: 20px;
 }
 
 .card {
-    width: calc(33.33% - 10px); /* Calculate width for three cards in one row with spacing */
+    width: calc(33.33% - 10px);
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -115,7 +115,7 @@ p {
 }
 
 .card:last-child {
-    margin-right: 0; /* Remove margin for the last card to avoid spacing */
+    margin-right: 0;
 }
 
 .card-image {
@@ -140,11 +140,11 @@ p {
     font-size: 16px;
 }
 
-/* YourSliderStyles.css */
+
 
 .arrow-buttons {
-    position: absolute; /* Position the arrow buttons */
-    top: 50%; /* Vertically align the arrow buttons in the middle */
+    position: absolute;
+    top: 50%;
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;

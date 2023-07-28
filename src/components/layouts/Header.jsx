@@ -1,16 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import '../CSS/header.css';
-import {FaCopy, FaEthereum } from "react-icons/fa";
-import { ethers } from "ethers";
+import {FaCopy, FaEthereum, FaUserCircle, FaPlus, FaSignOutAlt } from "react-icons/fa";
+import Metamasklogo from '../images/MetaMask_Fox.png.png';
+import Web3 from 'web3';
+import { Dropdown } from 'react-bootstrap';
 
 const Header = () => {
     const [showOptions, setShowOptions] = useState(false);
-    const [connected, setConnected] = useState(false);
-    const [account, setAccount] = useState(null);
-    const [balance, setBalance] = useState(null);
-    const [isConnecting, setIsConnecting] = useState(false);
-    const [isCopied, setIsCopied] = useState(false);
+    const [isConnected, setIsConnected] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [balance, setUserBalance] = useState('');
+    const [address, setUserAddress] = useState('');
+    const [isCopied, setIsCopied] = useState(false)
+    const [showMenus, setShowMenus] = useState(false);
+
+    const tooltipRef = useRef();
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -20,184 +25,225 @@ const Header = () => {
         setShowOptions(false);
     };
 
-    const connectWallet = async () => {
+    const formatAddress = (address) => {
+        if (!address) return '';
+        const firstFour = address.slice(0, 5);
+        const lastFour = address.slice(-4);
+        const dots = '...';
+        return `${firstFour}${dots}${lastFour}`;
+    };
+
+    const handleConnectWallet = async () => {
         try {
             if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                setConnected(true);
-                setAccount(accounts[0]);
-                localStorage.setItem('userAccount', accounts[0]);
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts',
+                });
+                setIsConnected(true);
+                setUserAddress(accounts[0]);
+
+                localStorage.setItem('address', accounts[0]);
+                localStorage.setItem('isConnected', true);
             } else {
                 alert('Please install MetaMask to connect your wallet.');
             }
         } catch (error) {
-            console.error('Wallet connection error', error);
+            console.error('Error connecting wallet:', error);
         }
-    };
-
-    const handleAccountsChanged = async (accounts) => {
-        if (accounts.length === 0) {
-            setConnected(false);
-            setAccount(null);
-            setBalance(null);
-        } else {
-            setConnected(true);
-            setAccount(accounts[0]);
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const balance = await provider.getBalance(accounts[0]);
-            setBalance(ethers.utils.formatEther(balance));
-        }
-        setIsConnecting(false);
-    };
-
-    const disconnectWallet = async () => {
-        try {
-            if (window.ethereum) {
-                window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-                setConnected(false);
-                setAccount(null);
-                localStorage.removeItem('userAccount');
-                alert('Logout Success');
-            }
-        } catch (error) {
-            alert('Logout failed');
-            console.error('Logout failed', error);
-        }
-    };
+    }
 
     useEffect(() => {
-        if (window.ethereum) {
-            const handleAccountsChanged = (accounts) => {
-                if (accounts.length === 0) {
-                    setConnected(false);
-                    setAccount(null);
-                    localStorage.removeItem('userAccount');
-                } else {
-                    setConnected(true);
-                    setAccount(accounts[0]);
-                    localStorage.setItem('userAccount', accounts[0]);
-                }
-            };
-            window.ethereum.on('accountsChanged', handleAccountsChanged);
+        const localStorageConnected = localStorage.getItem('isConnected') === 'true';
+        if (localStorageConnected) {
+            const localStorageAddress = localStorage.getItem('address');
+            setIsConnected(true);
+            setUserAddress(localStorageAddress);
 
-            const fetchBalance = async () => {
-                if (account) {
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    const balance = await provider.getBalance(account);
-                    setBalance(ethers.utils.formatEther(balance));
-                }
-            };
-            fetchBalance();
-
-            return () => {
-                window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-            };
-        }
-    }, [account])
-
-    useEffect(() => {
-        const storedAccount = localStorage.getItem('userAccount');
-        if (storedAccount) {
-            setConnected(true);
-            setAccount(storedAccount);
         }
     }, []);
 
+
+
+
+
+    const handleLogout = () => {
+        setIsConnected(false);
+        setUserAddress('');
+        setUserBalance(0);
+        localStorage.removeItem('address');
+        localStorage.removeItem('isConnected');
+    };
+
+    console.log("Adress is", address)
+    console.log("Balamce is", balance)
+
     const copyOwnerToClipboard = () => {
-        if (account) {
-            navigator.clipboard.writeText(account);
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 1500);
+        if (navigator.clipboard) {
+            navigator.clipboard
+                .writeText(address)
+                .then(() => {
+                    setIsCopied(true);
+                    setTimeout(() => setIsCopied(false), 1500);
+                })
+                .catch((error) => {
+                    console.error('Error copying to clipboard:', error);
+                    fallbackCopyToClipboard();
+                });
+        } else {
+            fallbackCopyToClipboard();
         }
+    };
+
+    const fallbackCopyToClipboard = () => {
+        const textArea = document.createElement('textarea');
+        textArea.value = address;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 1500);
+    };
+
+    const handleCreateClick = () => {
+        setShowMenus(!showMenus);
+    };
+
+    const handleCreateMouseLeave = () => {
+        setShowMenus(false);
     };
 
     return (
         <>
             <header className="header">
-                <div className="logo">
-                    <Link to="/">Logo</Link>
-                </div>
-                <nav className="nav">
-                    <ul className="nav-links">
-
-                        <li className="mx-3">
-                            <Link to="/">
-                                <label className="mx-5">Homepage</label>
-                            </Link>
-                        </li>
-                        <li
-                            className="dropdown mx-3"
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <label className="mx-4">Explore</label>
-                            {showOptions && (
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <Link to="/nftmarket" style={{fontSize: '18px'}}>NFTs</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/gametokemarket" style={{fontSize: '18px'}}>Game Token</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/create/fnft" style={{fontSize: '18px'}}>Real Estate</Link>
-                                    </li>
-                                </ul>
-                            )}
-                        </li>
-
-                        <li
-                            className="dropdown mx-3"
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <label className="mx-4">Create</label>
-                            {showOptions && (
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <Link to="/create/NFT" style={{fontSize: '18px'}}>NFT</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/create/ERC1155" style={{fontSize: '18px'}}>NFT (ERC1155)</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/create/FNFT" style={{fontSize: '18px'}}>F-NFT</Link>
-                                    </li>
-                                </ul>
-                            )}
-                        </li>
-
-                    </ul>
-                </nav>
-                <div className="user-container">
-                    {connected ? (
-                        <div className="user-info">
-                            <div className="user-details">
-                                <div className="account-address">
-                                    <FaEthereum className="mxy-0" size={20} color="currentColor" style={{ marginRight: '5px' }} />
-                                    <p className="account-info">{account}</p>
-                                    <FaCopy
-                                        className="copy-icon my-2 mb-3"
-                                        onClick={copyOwnerToClipboard}
-                                    />
-                                    {isCopied && <span>Copied</span> }
-                                </div>
-                                <p className="mx-4 mt-1 account-info"> {balance} ETH</p>
+                    <div className="main-wrap">
+                    <nav className="nav">
+                        <ul className="nav-links">
+                            <div className="logo mx-3">
+                                <Link to="/">Logo</Link>
                             </div>
-                            <button className="btn-primary btn logout-button" onClick={disconnectWallet}>
-                                Logout
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="connect-wallet-container">
-                            <button className="connect-wallet-button" onClick={connectWallet} disabled={connected}>Connect Wallet</button>
-                        </div>
-                    )}
+                            <li className="mx-3">
+                                <Link to="/">
+                                    <label>Home</label>
+                                </Link>
+                            </li>
+                            <li
+                                className="dropdown"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <label>Explore</label>
+                                {showOptions && (
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <Link to="/nftmarket" style={{ fontSize: '18px' }}>NFTs</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/gametokemarket" style={{ fontSize: '18px' }}>Game Token</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/create/fnft" style={{ fontSize: '18px' }}>Real Estate</Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                            <li
+                                className="dropdown mx-3"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <label>Create</label>
+                                {showOptions && (
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <Link to="/create/NFT" style={{ fontSize: '18px' }}>NFT</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/create/ERC1155" style={{ fontSize: '18px' }}>NFT (ERC1155)</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/create/FNFT" style={{ fontSize: '18px' }}>F-NFT</Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
+                <div className="connect-wallet">
+                    <div
+                        className="profile-info"
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                    >
+                        {isConnected ? (
+                            <>
+                                <FaUserCircle size={32}/>
+                                    {showTooltip && (
 
+                                    <div className="tooltip-content">
+                                        <div className="tooltip-container">
+                                            <div className="address-section">
+                                            <img src={Metamasklogo} alt="Metamask Icon" />
+                                            <div className="eth-style">
+                                                <span className="eth">Ethereum</span>
+                                                <span className="eth-address">{formatAddress(address)}
+                                                    <FaCopy size={16}
+                                                        className="copy-icon mx-3"
+                                                        onClick={copyOwnerToClipboard}
+                                                    />
+                                                    {isCopied && <span>Copied</span>}
+                                                </span>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="info-section">
+                                            <div className="module" style={{cursor : "default"}}>
+                                                <FaEthereum size={24} />
+                                                <p>{balance} ETH</p>
+                                            </div>
+
+                                            <div className="module"
+                                                 onClick={handleCreateClick}
+                                                 onMouseLeave={handleCreateMouseLeave}
+                                            >
+                                                <FaPlus size={24} />
+                                                <p>Create</p>
+                                                {showMenus && (
+                                                    <ul className="create-menu">
+                                                        <li>
+                                                            <Link to="/create/NFT">NFT</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to="/create/ERC1155">Game Token</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to="/create/fnft">House</Link>
+                                                        </li>
+                                                    </ul>
+                                                )}
+                                            </div>
+
+                                            <div className="module" onClick={handleLogout}>
+                                                <FaSignOutAlt size={24} />
+                                                <p>Logout</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <button className="btn btn-primary button-wallet" onClick={handleConnectWallet}>
+                                Connect Wallet
+                            </button>
+                    )}
+                    </div>
+                </div>
             </header>
         </>
     );
 };
-
 export default Header;

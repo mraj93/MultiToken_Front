@@ -7,7 +7,7 @@ const NFTMarketSidebar = () =>  {
         'Art',
         'Collectibles',
         'Music'
-        // Add more filters as needed
+
     ];
     return (
         <>

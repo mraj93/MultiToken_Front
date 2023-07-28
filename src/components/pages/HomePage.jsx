@@ -131,45 +131,7 @@ const HomePage = () => {
                             </div>
                         ))}
 
-                        {/*<div className="card">
-                            <img src="https://example.com/nft-card-1.jpg" alt="NFT Card 1" className="card-image"/>
-                            <div className="card-content">
-                                <h3>NFT Card 1</h3>
-                                <p>This is the description of NFT Card 1.</p>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <img src="https://example.com/nft-card-2.jpg" alt="NFT Card 2" className="card-image"/>
-                            <div className="card-content">
-                                <h3>NFT Card 2</h3>
-                                <p>This is the description of NFT Card 2.</p>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <img src="https://example.com/nft-card-2.jpg" alt="NFT Card 2" className="card-image"/>
-                            <div className="card-content">
-                                <h3>NFT Card 2</h3>
-                                <p>This is the description of NFT Card 2.</p>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <img src="https://example.com/nft-card-2.jpg" alt="NFT Card 2" className="card-image"/>
-                            <div className="card-content">
-                                <h3>NFT Card 2</h3>
-                                <p>This is the description of NFT Card 2.</p>
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <img src="https://example.com/nft-card-2.jpg" alt="NFT Card 2" className="card-image"/>
-                            <div className="card-content">
-                                <h3>NFT Card 2</h3>
-                                <p>This is the description of NFT Card 2.</p>
-                            </div>
-                        </div>*/}
+                        {}
 
                     </div>
                 </div>

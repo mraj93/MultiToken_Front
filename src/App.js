@@ -11,9 +11,6 @@ import NFTMarket from "./components/pages/NFTMarket";
 import GameTokenMarket from "./components/pages/GameTokenMarket";
 import NFTDetails from "./components/pages/NFTDetails";
 
-// import './global.css';
-// import '../src/components/CSS/globalStyles.css';
-
 const App = () => {
     return (
         <Router>
