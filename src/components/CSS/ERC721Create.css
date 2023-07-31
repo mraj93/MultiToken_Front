@@ -31,6 +31,7 @@
     width: 500px;
     height: 50px;
     resize: vertical;
+    background-color: white;
 }
 
 .mint-button {

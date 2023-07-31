@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useParams } from "react-router-dom";
 import "../CSS/NFTDetails.css";
 import { FaCopy, FaCheck, FaExternalLinkAlt, FaEthereum} from "react-icons/fa";
+import axios from "axios";
 import creatorIcon from "../images/square-48.png";
 import currentIcon from "../images/square-48 (1).png";
 
 const NFTDetail = () => {
   const [isCopiedCreator, setIsCopiedCreator] = useState(false);
   const [isCopiedCurrent, setIsCopiedCurrent] = useState(false);
+  const [detail, setDetail] = useState({});
+  const [owner, setOwner] = useState('');
 
   const nftData = {
-    title: "Name1",
+    title: "Name2",
     owner: "0x0fa6007b8DD1520F6bF3C0E11B22fDF67f9Eb5d8",
     currentOwner: "0x0fa6007b8DD1520F6bF3C0E11B22fDF67f9Eb5d8s",
     price: "0.05 ETH",
@@ -29,8 +32,7 @@ const NFTDetail = () => {
   };
 
   const handleCopy = (addressType, addressValue) => {
-    navigator.clipboard
-      .writeText(addressValue)
+    navigator.clipboard.writeText(addressValue)
       .then(() => {
         if (addressType === "Creator") {
           setIsCopiedCreator(true);
@@ -50,6 +52,22 @@ const NFTDetail = () => {
       });
   };
 
+  const NFTDetails = async () => {
+    axios.get('http://localhost:9090/NFTDetails/1')
+        .then(res => {
+          console.log('Data:', res.data);
+          setDetail(res.data.data);
+          setOwner(res.data.owner);
+        })
+        .catch(error => {
+          console.error('API error:', error);
+        });
+  }
+
+  useEffect(() => {
+      NFTDetails();
+  }, []);
+
   return (
     <>
       <div className="container">
@@ -62,7 +80,7 @@ const NFTDetail = () => {
         <div className="nft-detail-info-container">
           <div className="nft-detail-info">
             <div className="nft-name">
-              <h5>{nftData.title}</h5>
+              <h5>{detail?.category}</h5>
             </div>
 
             <div className="combine my-5">
@@ -77,7 +95,7 @@ const NFTDetail = () => {
                 <div className="address-container">
                   <h5>Creator</h5>
                   <div className="address-info">
-                    <p>{formatAddress(nftData.owner)}</p>
+                    <p>{formatAddress(owner)}</p>
                     <div className="copy-icon-container">
                       <FaCopy
                         className="copy-icon"
@@ -141,7 +159,7 @@ const NFTDetail = () => {
             <div className="d-flex justify-content-between align-items-center price">
               <div>
                 <h5>Price</h5>
-                <p className="price-section">{nftData.price}</p>
+                <p className="price-section">{detail?.price} ETH</p>
               </div>
               <div className="d-flex flex-column buttons">
                 <button
@@ -164,7 +182,7 @@ const NFTDetail = () => {
 
       <h5 className="detail-title">Description</h5>
       <div className="details" style={{ border: "none", height: "auto" }}>
-        <p>{nftData.description}</p>
+        <p>{detail?.description}</p>
       </div>
 
       <h5 className="detail-title">Details</h5>

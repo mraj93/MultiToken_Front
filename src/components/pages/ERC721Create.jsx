@@ -2,25 +2,25 @@ import React, { useState } from "react";
 import "../CSS/ERC721Create.css";
 
 const ERC721Create = () => {
-  const [category, setCategory] = useState("");
+  const [nftName, setNftName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
+    setNftName(e.target.value);
   };
 
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
-  
+
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
   
   const MintNFT = () => {
     console.log("Mint Success with parameters", {
-      category,
+      setNftName,
       description,
       price,
     });
@@ -52,12 +52,12 @@ const ERC721Create = () => {
             </div>
 
             <div className="form-group w-100">
-              <label className="left-align-label">Category</label>
+              <label className="left-align-label">Name</label>
               <input
                 className="input-field"
                 type="text"
                 id="category"
-                value={category}
+                value={nftName}
                 onChange={handleCategoryChange}
               />
             </div>

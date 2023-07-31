@@ -54,17 +54,14 @@ const NFTMarket = () => {
             price: '0.08 ETH',
         },
     ];
+
     const navigate = useNavigate()
     const itemsPerPage = 9; // Number of items to display per page
-    const [currentPage, setCurrentPage] = useState(1);
     const [displayedData, setDisplayedData] = useState(nftData.slice(0, itemsPerPage));
 
     const NFTDetail = (element) => {
         const titleWithHyphen = element.title.replace(/\s+/g, '-');
         navigate(`details/${titleWithHyphen}`);
-
-        console.log("clicked on details page here")
-        console.log("elemnet is here:", element)
     }
 
     return (

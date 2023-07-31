@@ -2,9 +2,8 @@ import React, {useEffect, useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import '../CSS/header.css';
 import {FaCopy, FaEthereum, FaUserCircle, FaPlus, FaSignOutAlt } from "react-icons/fa";
+import {ethers} from "ethers";
 import Metamasklogo from '../images/MetaMask_Fox.png.png';
-import Web3 from 'web3';
-import { Dropdown } from 'react-bootstrap';
 
 const Header = () => {
     const [showOptions, setShowOptions] = useState(false);
@@ -14,8 +13,6 @@ const Header = () => {
     const [address, setUserAddress] = useState('');
     const [isCopied, setIsCopied] = useState(false)
     const [showMenus, setShowMenus] = useState(false);
-
-    const tooltipRef = useRef();
 
     const handleMouseEnter = () => {
         setShowOptions(true);
@@ -41,14 +38,29 @@ const Header = () => {
                 });
                 setIsConnected(true);
                 setUserAddress(accounts[0]);
-
                 localStorage.setItem('address', accounts[0]);
                 localStorage.setItem('isConnected', true);
+                const provider = await new ethers.providers.Web3Provider(window.ethereum);
+                const balance = await provider.getBalance(accounts[0]);
+                const formattedBalance =ethers.utils.formatEther(balance);
+                setUserBalance(formattedBalance);
             } else {
                 alert('Please install MetaMask to connect your wallet.');
             }
         } catch (error) {
             console.error('Error connecting wallet:', error);
+        }
+    }
+
+    const handlefetchBalance = async () => {
+        try {
+            const provider = await new ethers.providers.Web3Provider(window.ethereum);
+            const balance = await provider.getBalance(address);
+            const formattedBalance =ethers.utils.formatEther(balance);
+            setUserBalance(formattedBalance);
+        }
+        catch (e) {
+            // console.error(e)
         }
     }
 
@@ -58,24 +70,20 @@ const Header = () => {
             const localStorageAddress = localStorage.getItem('address');
             setIsConnected(true);
             setUserAddress(localStorageAddress);
-
         }
     }, []);
 
-
-
-
+    useEffect( () => {
+        handlefetchBalance();
+    }, [address] )
 
     const handleLogout = () => {
         setIsConnected(false);
         setUserAddress('');
-        setUserBalance(0);
+        // setUserBalance('');
         localStorage.removeItem('address');
         localStorage.removeItem('isConnected');
     };
-
-    console.log("Adress is", address)
-    console.log("Balamce is", balance)
 
     const copyOwnerToClipboard = () => {
         if (navigator.clipboard) {
@@ -202,7 +210,7 @@ const Header = () => {
                                         <div className="info-section">
                                             <div className="module" style={{cursor : "default"}}>
                                                 <FaEthereum size={24} />
-                                                <p>{balance} ETH</p>
+                                                <p>{parseFloat(balance).toFixed(4)} ETH</p>
                                             </div>
 
                                             <div className="module"
