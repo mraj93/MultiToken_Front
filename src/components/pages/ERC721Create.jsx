@@ -7,17 +7,18 @@ import ReactLoading from "react-loading";
 import {Buffer} from "buffer";
 import {Upload} from "antd";
 window.Buffer = Buffer;
+const PROJECT_ID = process.env.PROJECT_ID;
+const INFURA_SECRET_KEY = process.env.INFURA_SECRET_KEY;
 
-const { PROJECT_ID, INFURA_KEY, INFURA_ENDPOINT } = process.env;
-const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_KEY).toString("base64");
+const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_SECRET_KEY).toString("base64");
 
 const ERC721Create = () => {
+    const { register, handleSubmit} = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const [imageHash, setImageHash] = useState("");
-    const { register, handleSubmit} = useForm();
+    const [metadataURI, setMetadataURI] = useState("");
     const ipfs = ipfsHttpClient({
-        url: INFURA_ENDPOINT,
-
+        url: "https://ipfs.infura.io:5001",
         headers: {
             authorization,
         },
@@ -26,6 +27,20 @@ const ERC721Create = () => {
     const submitData = async (data) => {
         console.log("data", data);
         setIsLoading(true);
+
+        const metadata = {
+            name: data.nftName,
+            description: data.description,
+            image: imageHash
+        };
+        const metaDataJSON = Buffer.from(JSON.stringify(metadata));
+        const uploadMetaData = await ipfs.add(metaDataJSON);
+        console.log("MetaData path:",  uploadMetaData.path);
+        setMetadataURI(uploadMetaData.path);
+
+        data.tokenURI = imageHash;
+        data.metaDataURI = metadataURI;
+
         try {
             const response = await axios.post('http://localhost:9090/mintERC721', data, {
                 headers: {
@@ -33,44 +48,40 @@ const ERC721Create = () => {
                 },
             });
             console.log(response.data);
+            if (response.status === 200) {
+                alert("Mint Successfully..");
+                window.location.reload();
+            }
         } catch (error) {
             console.error('Error:', error);
         }
         setIsLoading(false);
     };
 
-    const beforeUpload = (file) => {
-        const isPNG = file.type === "image/jpg" || file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/gif";
-        const isSizeValid = file.size / 1024 / 1024 <= 10;
-        if ( (!isPNG) || (!isSizeValid) ) {
-            alert("File format or size is not acceptable");
-        }
-        return (isPNG && isSizeValid);
-    };
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
 
-    const handleImageUpload = async (e) => {
         try {
-            const file = e.target.files[0];
-            const { cid } = await ipfs.add(file);
-            setImageHash(cid.toString());
-            console.log("image hash is here", cid.toString());
+            const result = await ipfs.add(file);
+            const ipfsHash = result.path;
+            const imageURI = `https://ipfs.io/ipfs/${result.path}`;
+            setImageHash(imageURI);
+        } catch (error) {
+            console.error ('Error uploading file to IPFS:', error);
         }
-        catch (e) {
-            console.error(e)
-        }
-    }
+    };
 
     return (
         <>
-            <div className={`overlay ${isLoading ? 'active' : ''}`}>
-                {isLoading && (
-                    <div className="loader-container">
-                        <p><strong>NFT is minting...</strong></p>
-                        <ReactLoading type="spin" color="cyan" height={60} width={70}/>
-                    </div>
-                )}
-            </div>
+            { isLoading && (
+                <div className="loader-container">
+                    <p>NFT is minting...</p>
+                    <ReactLoading type="spin" color="cyan" height={80} width={90} />
+                </div>
+            )}
 
+            <div className={`content-container ${isLoading ? 'blur-background' : ''}`}>
             <div className="title">
                 <h1>Mint NFT</h1>
             </div>
@@ -80,23 +91,13 @@ const ERC721Create = () => {
 
                         <div className="form-group w-100">
                             <label className="image-upload1">Upload Image</label>
-                            <Upload
+                            <input
                                 className="image-upload"
                                 type="file"
+                                accept=" image/*"
                                 onChange={handleImageUpload}
-                                beforeUpload={beforeUpload}
                             />
                         </div>
-
-                        {/*<div className="form-group w-100">*/}
-                        {/*  <label className="left-align-label">Name</label>*/}
-                        {/*  <input*/}
-                        {/*      className="input-field"*/}
-                        {/*      type="text"*/}
-                        {/*      {...register('nftName')}*/}
-                        {/*  />*/}
-                        {/*</div>*/}
-
                         <div className="form-group w-100">
                             <label className="left-align-label">Name</label>
                             <input
@@ -120,20 +121,13 @@ const ERC721Create = () => {
                                 {...register('description')}
                             />
                         </div>
-                        <div className="form-group w-100">
-                            <label className="left-align-label">TokenURI</label>
-                            <input
-                                className="input-field"
-                                type="text"
-                                {...register('tokenURI')}
-                            />
-                        </div>
                     </div>
                     <button type="submit" className="btn btn-primary w-25 mint-button">
                         Mint NFT
                     </button>
                 </form>
             </div>
+        </div>
         </>
     );
 };
