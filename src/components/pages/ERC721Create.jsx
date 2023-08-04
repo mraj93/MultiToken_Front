@@ -9,6 +9,7 @@ import {Upload} from "antd";
 window.Buffer = Buffer;
 const PROJECT_ID = process.env.PROJECT_ID;
 const INFURA_SECRET_KEY = process.env.INFURA_SECRET_KEY;
+console.log( process.env.API_HOST + 'mintERC721');
 
 const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_SECRET_KEY).toString("base64");
 
@@ -16,7 +17,6 @@ const ERC721Create = () => {
     const { register, handleSubmit} = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const [imageHash, setImageHash] = useState("");
-    const [metadataURI, setMetadataURI] = useState("");
     const ipfs = ipfsHttpClient({
         url: "https://ipfs.infura.io:5001",
         headers: {
@@ -33,16 +33,13 @@ const ERC721Create = () => {
             description: data.description,
             image: imageHash
         };
-        const metaDataJSON = Buffer.from(JSON.stringify(metadata));
-        const uploadMetaData = await ipfs.add(metaDataJSON);
-        console.log("MetaData path:",  uploadMetaData.path);
-        setMetadataURI(uploadMetaData.path);
-
+        const metaDataJSON = await ipfs.add(Buffer.from(JSON.stringify(metadata)));
+        let metaDataURI = `https://ipfs.io/ipfs/${metaDataJSON.path}`;
+        console.log(metaDataURI);
         data.tokenURI = imageHash;
-        data.metaDataURI = metadataURI;
-
+        data.metaDataURI = metaDataURI;
         try {
-            const response = await axios.post('http://localhost:9090/mintERC721', data, {
+            const response = await axios.post(process.env.API_HOST+'mintERC721', data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -61,7 +58,7 @@ const ERC721Create = () => {
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
+        
         try {
             const result = await ipfs.add(file);
             const ipfsHash = result.path;
