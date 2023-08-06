@@ -21,7 +21,7 @@ const App = () => {
                 <Route path="/create/ERC1155" element={<ERC1155Create />} />
                 <Route path="/nftmarket" element={<NFTMarket />} />
                 <Route path="/gametokemarket" element={<GameTokenMarket />} />
-                <Route path="/nftmarket/details/:name" element={<NFTDetails />} />
+                <Route path="/nft/details/:tokenId" element={<NFTDetails />} />
             </Routes>
         </Router>
     );

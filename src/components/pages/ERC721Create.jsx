@@ -5,18 +5,17 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import ReactLoading from "react-loading";
 import {Buffer} from "buffer";
-import {Upload} from "antd";
+import Web3 from "web3";
 window.Buffer = Buffer;
 const PROJECT_ID = process.env.PROJECT_ID;
-const INFURA_SECRET_KEY = process.env.INFURA_SECRET_KEY;
-console.log( process.env.API_HOST + 'mintERC721');
-
-const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_SECRET_KEY).toString("base64");
+const INFURA_KEY = process.env.INFURA_KEY;
+const web3 = new Web3(Web3.givenProvider || process.env.API_URL);
+const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_KEY).toString("base64");
 
 const ERC721Create = () => {
     const { register, handleSubmit} = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const [imageHash, setImageHash] = useState("");
+    const [imageFile, setImageFile] = useState(null);
     const ipfs = ipfsHttpClient({
         url: "https://ipfs.infura.io:5001",
         headers: {
@@ -24,22 +23,29 @@ const ERC721Create = () => {
         },
     });
 
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        setImageFile(file);
+    };
+
     const submitData = async (data) => {
-        console.log("data", data);
         setIsLoading(true);
 
+        const result = await ipfs.add(imageFile);
+        const nftURI = `https://ipfs.io/ipfs/${result.path}`;
         const metadata = {
-            name: data.nftName,
-            description: data.description,
-            image: imageHash
+            name: data.nftName, description: data.description, image: nftURI
         };
         const metaDataJSON = await ipfs.add(Buffer.from(JSON.stringify(metadata)));
         let metaDataURI = `https://ipfs.io/ipfs/${metaDataJSON.path}`;
-        console.log(metaDataURI);
-        data.tokenURI = imageHash;
+
+        data.price = web3.utils.toWei(data.price, "ether");
+        data.nftURI = nftURI;
         data.metaDataURI = metaDataURI;
+
         try {
-            const response = await axios.post(process.env.API_HOST+'mintERC721', data, {
+            const response = await axios.post(process.env.API_HOST + "/mintERC721", data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -53,20 +59,6 @@ const ERC721Create = () => {
             console.error('Error:', error);
         }
         setIsLoading(false);
-    };
-
-    const handleImageUpload = async (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        try {
-            const result = await ipfs.add(file);
-            const ipfsHash = result.path;
-            const imageURI = `https://ipfs.io/ipfs/${result.path}`;
-            setImageHash(imageURI);
-        } catch (error) {
-            console.error ('Error uploading file to IPFS:', error);
-        }
     };
 
     return (

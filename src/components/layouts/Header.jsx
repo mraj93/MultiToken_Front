@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import '../CSS/header.css';
 import {FaCopy, FaEthereum, FaUserCircle, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import {ethers} from "ethers";
+import NexusLogo from '../images/Logo.png';
 import Metamasklogo from '../images/MetaMask_Fox.png.png';
 
 const Header = () => {
@@ -128,9 +129,13 @@ const Header = () => {
                     <div className="main-wrap">
                     <nav className="nav">
                         <ul className="nav-links">
-                            <div className="logo mx-3">
-                                <Link to="/">Logo</Link>
-                            </div>
+
+                            <Link to="/">
+                                <img src={NexusLogo} alt="Your Logo"
+                                     style={{ width: '100px', height: 'auto' }}/>
+                            </Link>
+
+
                             <li className="mx-3">
                                 <Link to="/">
                                     <label>Home</label>
