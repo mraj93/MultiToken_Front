@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../CSS/ERC721Create.css";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useForm } from 'react-hook-form';
@@ -6,9 +6,11 @@ import axios from "axios";
 import ReactLoading from "react-loading";
 import {Buffer} from "buffer";
 import Web3 from "web3";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 window.Buffer = Buffer;
 const PROJECT_ID = process.env.PROJECT_ID;
-const INFURA_KEY = process.env.INFURA_KEY;
+const INFURA_KEY = process.env.INFURA_SECRET_KEY;
 const web3 = new Web3(Web3.givenProvider || process.env.API_URL);
 const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_KEY).toString("base64");
 
@@ -32,6 +34,11 @@ const ERC721Create = () => {
     const submitData = async (data) => {
         setIsLoading(true);
 
+        if (!imageFile || !data.nftName || !data.description || !data.price) {
+            setIsLoading(false);
+            return;
+        }
+
         const result = await ipfs.add(imageFile);
         const nftURI = `https://ipfs.io/ipfs/${result.path}`;
         const metadata = {
@@ -50,13 +57,13 @@ const ERC721Create = () => {
                     "Content-Type": "application/json"
                 },
             });
-            console.log(response.data);
             if (response.status === 200) {
-                alert("Mint Successfully..");
+                toast.success("NFT Minted Successfully", {autoClose: 2000});
                 window.location.reload();
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
+            toast.error("Error occurred while minting", {autoClose: 2000});
         }
         setIsLoading(false);
     };
@@ -69,7 +76,6 @@ const ERC721Create = () => {
                     <ReactLoading type="spin" color="cyan" height={80} width={90} />
                 </div>
             )}
-
             <div className={`content-container ${isLoading ? 'blur-background' : ''}`}>
             <div className="title">
                 <h1>Mint NFT</h1>
@@ -111,9 +117,8 @@ const ERC721Create = () => {
                             />
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary w-25 mint-button">
-                        Mint NFT
-                    </button>
+                    <button type="submit" className="btn btn-primary w-25 mint-button">Mint NFT</button>
+                    <ToastContainer position="top-center" />
                 </form>
             </div>
         </div>

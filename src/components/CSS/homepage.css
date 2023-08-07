@@ -1,12 +1,33 @@
 body {
-    background-color: #14192e;
+    /*background-color: #14192e;*/
+    /*background-color: rgba(4, 17, 39, 0.96); !* Set the background color *!*/
+    /*background: linear-gradient(to right, rgba(4, 17, 39, 0.96), rgba(45, 134, 212, 0.8)); !* Set the background colors using linear gradient *!*/
+    /*background: linear-gradient(to right,*/
+    /*rgba(4, 17, 39, 0.96),*/
+    /*rgba(10, 30, 57, 0.9)*/
+
+    background: radial-gradient(circle at center,
+    rgba(4, 17, 39, 0.96),
+    rgba(10, 30, 57, 0.9),
+    rgba(4, 17, 39, 0.96)
+
+    /*rgba(18, 49, 91, 0.8)*/
+    /*rgba(36, 85, 158, 0.7)*/
+    /*rgba(45, 134, 212, 0.6),*/
+    /*rgba(55, 174, 255, 0.5)*/
+    );
     color: white;
 }
 
+.slider-container {
+    height: 200px   ;
+}
+
 .your-slider-container {
-    position: relative;
+    /*position: relative;*/
+    /*display: flex;*/
     width: 100%;
-    height: 600px;
+    height: 10px;
 }
 .slider-item img {
     position: relative;
@@ -37,14 +58,10 @@ body {
     cursor: pointer;
 }
 
-
-
-
-
-
 .nft-marketplace-section {
 
-    background-color: skyblue;
+    background-color: rgba(12,18,39,0.96);
+    /*background-color: #14192e;*/
     padding: 50px 0;
     color: #000;
     border-radius: 10px;
@@ -98,24 +115,33 @@ p {
 
 .card-container {
     display: flex;
-
-
     overflow-x: auto;
     padding-bottom: 20px;
 }
 
 .card {
-    width: calc(33.33% - 10px);
-    background-color: #fff;
+    /*width: calc(33.33% - 10px);*/
+    /*background-color: #fff;*/
+    border: 1px solid #1e72f0;
+    /*border-radius: 20px;*/
+    /*box-shadow: 8px 4px 20px rgba(51,106,252,.2), -8px 4px 20px rgba(39,208,254,.2);*/
+    box-shadow: 8px 4px 20px rgba(51,106,252,.2), -8px 4px 20px rgba(39,208,254,.2);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
     margin-right: 35px;
-    height: 500px;
-    width: 400px;
+    height: 320px;
+    width: 500px;
 }
 
 .card:last-child {
     margin-right: 0;
+}
+
+.card img {
+    width: 100%; /* Set the width to fill the entire card */
+    height: 200px; /* Set the desired height in pixels */
+    object-fit: cover; /* Maintain the aspect ratio and cover the entire area */
+    /* Add any other styles for the image if needed */
 }
 
 .card-image {
@@ -128,6 +154,12 @@ p {
 
 .card-content {
     padding: 20px;
+    /*background: rgba(29,22,48,.08),rgba(29,22,48,.46);*/
+    backdrop-filter: blur(64.4px);
+}
+.card-content h3{
+    color: #27d0fe;    /*background: linear-gradient(92.58deg,#27d0fe 8.66%,#314fc5 106.61%);*/
+
 }
 
 h3 {
@@ -170,4 +202,8 @@ p {
 
 .right {
     margin-right: 20px;
+}
+
+.section-spacing {
+    margin-top: 30px; /* Adjust the margin as needed */
 }

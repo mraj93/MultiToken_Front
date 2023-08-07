@@ -42,3 +42,17 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.Toastify__toast--success .Toastify__toast-body::before {
+  color: green;
+  display: inline-block;
+  margin-right: 8px;
+  text-decoration: line-through;
+}
+
+.Toastify__toast--error .Toastify__toast-body::before {
+  color: red;
+  display: inline-block;
+  margin-right: 8px;
+  text-decoration: line-through;
+}
