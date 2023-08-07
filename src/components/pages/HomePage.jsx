@@ -124,7 +124,7 @@ const HomePage = () => {
                                 src="https://i0.wp.com/cbaatthebar.chicagobar.org/wp-content/uploads/2021/04/NFT.jpg?w=788&ssl=1"
                                 alt="Slide 1"
                                 className="slider-image"
-                                style={{width: '100%', height: '700px'}}
+                                style={{width: '100%', height: '600px'}}
                             />
                         </div>
                         <div className="slider-item">
@@ -132,7 +132,7 @@ const HomePage = () => {
                                 src="https://mudrex.com/blog/wp-content/uploads/2023/06/WhatsApp-Image-2023-05-05-at-2.59.53-PM-2.jpeg"
                                 alt="Slide 2"
                                 className="slider-image"
-                                style={{width: '100%', height: '700px'}}
+                                style={{width: '100%', height: '600px'}}
                             />
                         </div>
                         <div className="slider-item">
@@ -140,7 +140,7 @@ const HomePage = () => {
                                 src="https://s3.amazonaws.com/assets.coingecko.com/app/public/ckeditor_assets/pictures/1757/content_nft.png"
                                 alt="Slide 3"
                                 className="slider-image"
-                                style={{width: '100%', height: '700px'}}
+                                style={{width: '100%', height: '600px'}}
                             />
                         </div>
                     </Slider>
@@ -151,42 +151,45 @@ const HomePage = () => {
                     </div>
                 </div>
 
-                <div className="section-spacing">
-                <section className="nft-marketplace-section my-2 mx-3">
-                        <div className="container">
-                            <div className="section-content">
-                                <h2 className="get-started-button">Latest NFT</h2>
+            <div className="section-spacing">
+            <section className="nft-marketplace-section my-2 mx-3">
+                        {/*<div className="container">*/}
+                        {/*    <div className="section-content">*/}
+                        {/*        <h2 className="get-started-button">Latest NFT</h2>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+
+                        <h2>Latest NFTs</h2>
+                        <div className="card-sliders">
+                            <div className="card-wrapper">
+                                <div className="card-container" ref={cardContainerRef}
+                                     style={{transform: `translateX(${translateX}%)`}}>
+                                    { nft.map((nftItem, index) => (
+                                        <div className="card" key={index} style={cardStyle} onClick={() => NFTDetail(nftItem.tokenId)}>
+                                            <div>
+                                                <img src={nftItem.nftURI} alt={nftItem.nftName} className="card-image"/>
+                                            </div>
+                                            <div className="card-content">
+                                                <div><h3>{nftItem.nftName}</h3></div>
+                                                <p className="nft-price">{Web3.utils.fromWei(nftItem.price, "ether")} ETH</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
-                        <div className="card-wrapper">
-                            <div className="card-container" ref={cardContainerRef}
-                                 style={{transform: `translateX(${translateX}%)`}}>
-                                { nft.map((nftItem, index) => (
-                                    <div className="card" key={index} style={cardStyle} onClick={() => NFTDetail(nftItem.tokenId)}>
-                                        <div>
-                                            <img src={nftItem.nftURI} alt={nftItem.nftName} className="card-image"/>
-                                        </div>
-                                        <div className="card-content">
-                                            <div><h3>{nftItem.nftName}</h3></div>
-                                            <p className="nft-price">{Web3.utils.fromWei(nftItem.price, "ether")} ETH</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        {/*<div className="arrow-buttons">*/}
+                        {/*    <button className="arrow-button left" onClick={handleScrollLeft}>*/}
+                        {/*        <FontAwesomeIcon icon={faChevronLeft}/>*/}
+                        {/*    </button>*/}
+                        {/*    <button className="arrow-button right" onClick={handleScrollRight}>*/}
+                        {/*        <FontAwesomeIcon icon={faChevronRight}/>*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
 
-                        <div className="arrow-buttons">
-                            <button className="arrow-button left" onClick={handleScrollLeft}>
-                                <FontAwesomeIcon icon={faChevronLeft}/>
-                            </button>
-                            <button className="arrow-button right" onClick={handleScrollRight}>
-                                <FontAwesomeIcon icon={faChevronRight}/>
-                            </button>
-                        </div>
                     </section>
                 </div>
-                {/*</div>*/}
         </>
     );
 }
