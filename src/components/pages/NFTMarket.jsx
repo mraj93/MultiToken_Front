@@ -72,7 +72,7 @@ const NFTMarket = () => {
                                 loader={<h4>Loading...</h4>}
                                 endMessage={<h4
                                     className="message mt-4"
-                                    style={{color : 'black'}}>No more items</h4>}
+                                    style={{color : 'white'}}>No more items</h4>}
                             >
                                 <div className="nft-cards">
                                     {displayedData.map((nft, index) => (

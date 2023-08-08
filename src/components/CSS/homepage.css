@@ -1,17 +1,48 @@
 body {
-    background: linear-gradient(135deg, #14192e, #192445, #1c1e3a, #1e1d32);
+    background: linear-gradient(100deg, #14192e, #192445, #1c1e3a, #1e1d32);
     color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.homepage-container {
+    position: relative;
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.blur-background {
+    filter: blur(4px);
+}
+
+.content-container {
+    padding: 20px;
 }
 
 .your-slider-container {
-    width: auto;
+    position: relative;
+    width: 100%;
     height: 600px;
+    overflow: hidden;
+
 }
 
 .custom-next-icon {
     position: absolute;
-    top: 40%;
-    right: 10px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
     z-index: 1;
     font-size: 28px;
     color: #fff;
@@ -19,57 +50,99 @@ body {
     padding: 10px 22px;
     border-radius: 50%;
     cursor: pointer;
-    border: 2px solid deepskyblue;
-}
-
-.card-container {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 20px;
-}
-
-.card {
-    border: 1px solid #1e72f0;
-    box-shadow: 8px 4px 20px rgba(51,106,252,.2), -8px 4px 20px rgba(39,208,254,.2);
-    border-radius: 8px;
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
-    margin-right: 35px;
-    height: 320px;
-    width: 500px;
-}
-
-.card:last-child {
-    margin-right: 0;
-}
-
-.card img {
-    width: 100%; /* Set the width to fill the entire card */
-    height: 200px; /* Set the desired height in pixels */
-    object-fit: cover; /* Maintain the aspect ratio and cover the entire area */
-}
-.card-content {
-    padding: 20px;
-    backdrop-filter: blur(64.4px);
-}
-
-.card-content h3{
-    color: #27d0fe;
-}
-
-h3 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 16px;
 }
 
 .section-spacing {
-    margin-top: 30px; /* Adjust the margin as needed */
+    margin-top: 30px;
 }
 
 .card-sliders {
-    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.left-icon,
+.right-icon {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    padding: 10px 22px;
+    border-radius: 50%;
+    background-color: #14192e;
+    color: white;
+    cursor: pointer;
+
+}
+
+.card-container {
+    margin-left: 120px;
+    display: flex;
+    overflow-x: auto;
+    max-width: 77%;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-right: 24px;
+    width: calc(33.33% - 24px);
+    min-width: 240px;
+    overflow: hidden;
+    will-change: transform;
+    flex: 0 0 150px;
+
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-image-container {
+    overflow: hidden;
+    height: 240px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    background-color: transparent;
+}
+
+.card-content {
+    padding: 16px;
+    background-color: #14192e;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.nft-name {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.nft-price {
+    margin: 8px 0;
+    font-size: 14px;
+    color: white;
+}
+.left-icon {
+    left: 0;
+}
+.right-icon {
+    margin-left: 80px;
 }
