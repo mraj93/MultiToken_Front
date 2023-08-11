@@ -21,7 +21,6 @@ const GameTokenMarket = () => {
       price: "0.05 ETH",
     },
     {
-
       imageSrc:
         "https://e0.pxfuel.com/wallpapers/140/589/desktop-wallpaper-x-suite-pubg-mobile-in-2021-new-mobile-android-animated-for-mobile-avalanche-x-suit.jpg",
       title: "NFT 3",
@@ -37,7 +36,6 @@ const GameTokenMarket = () => {
       price: "0.08 ETH",
     },
     {
-
       imageSrc:
         "https://e1.pxfuel.com/desktop-wallpaper/167/707/desktop-wallpaper-new-twitch-skins-jennajulien-m24-skipnho-slr-m24-pubg.jpg",
       title: "NFT 4",
@@ -53,7 +51,6 @@ const GameTokenMarket = () => {
       price: "0.08 ETH",
     },
     {
-
       imageSrc:
         "https://lh3.googleusercontent.com/r-BvuH7oA38uTq70mUyeYsJSX1hiPINcf1-rLqZjLy_WihwT8agq4RSXXimxgNqbU-YURV5212PJq6gUdoApEU_VJvCdPahpuZfz=s400",
       title: "NFT 4",

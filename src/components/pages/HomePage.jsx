@@ -33,18 +33,20 @@ const HomePage = () => {
         }
     };
 
-    useEffect(() => {
-        async function getLatestNFTs() {
-            setIsLoading(true);
-            try {
-                const res = await axios.get(process.env.API_HOST + '/recentNFTs');
-                console.log('all nfts is here', res.data);
-                setNft(res.data.data);
-            } catch (e) {
-                console.error('error while getting data', e);
-            }
-            setIsLoading(false);
+    const getLatestNFTs = async () => {
+        setIsLoading(true);
+        console.log("here")
+        try {
+            const res = await axios.get(process.env.API_HOST + '/recentNFTs');
+            console.log('all nfts is here', res.data);
+            setNft(res.data.data);
+        } catch (e) {
+            console.error('error while getting data', e);
         }
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
         getLatestNFTs();
     }, []);
 
