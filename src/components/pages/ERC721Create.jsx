@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../CSS/ERC721Create.css";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useForm } from 'react-hook-form';
@@ -25,9 +25,11 @@ const ERC721Create = () => {
         },
     });
 
-    console.log("logs", process.env.PROJECT_ID);
-    console.log("2", process.env.INFURA_SECRET_KEY);
-
+    useEffect( () => {
+        console.log("logs", process.env.PROJECT_ID);
+        console.log("2", process.env.INFURA_SECRET_KEY);
+    }, [])
+    
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
