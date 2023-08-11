@@ -16,8 +16,7 @@ const App = () => {
         <Router>
             <Header />
             <Routes>
-                {/*<Route path="/" element={<HomePage />} />*/}
-
+                <Route path="/" element={<HomePage />} />
                 <Route path="/create/NFT" element={<ERC721Create />} />
                 <Route path="/create/ERC1155" element={<ERC1155Create />} />
 
