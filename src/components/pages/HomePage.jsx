@@ -18,7 +18,7 @@ const HomePage = () => {
     const [nft, setNft] = useState([]);
     const handleNextClick1 = () => {
 
-    if (sliderRef.current) {
+        if (sliderRef.current) {
             if (currentIndex < nft.length - 4) { // Only move if there are at least 3 more cards to show
                 setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, nft.length - 3));
                 sliderRef.current.slickNext();
@@ -36,9 +36,7 @@ const HomePage = () => {
     useEffect(() => {
         async function getLatestNFTs() {
             setIsLoading(true);
-            console.log("in 1")
             try {
-                console.log("in try")
                 const res = await axios.get(process.env.API_HOST + '/recentNFTs');
                 console.log('all nfts is here', res.data);
                 setNft(res.data.data);
@@ -125,7 +123,7 @@ const HomePage = () => {
                                         </div>
                                         <div className="card-content">
                                             <h3 className="nft-name">{nftItem.nftName}</h3>
-                                            <p className="nft-price">{Web3.utils.fromWei(nftItem.price, 'ether')} ETH</p>
+                                            <p className="nft-price"> {Web3.utils.fromWei(nftItem.price, 'ether').toString()} ETH</p>
                                         </div>
                                     </div>
                                 ))}
