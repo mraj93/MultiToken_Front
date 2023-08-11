@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@svgr/webpack": "^8.0.1",
     "ethers": "^5.0.0"
