@@ -60,7 +60,6 @@ const GameTokenMarket = () => {
   ];
 
   const itemsPerPage = 9;
-  const [currentPage, setCurrentPage] = useState(1);
   const [displayedData, setDisplayedData] = useState(
     nftData.slice(0, itemsPerPage)
   );

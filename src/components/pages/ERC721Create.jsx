@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import "../CSS/ERC721Create.css";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useForm } from 'react-hook-form';

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import '../CSS/header.css';
 import {FaCopy, FaEthereum, FaUserCircle, FaPlus, FaSignOutAlt } from "react-icons/fa";
