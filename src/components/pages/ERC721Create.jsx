@@ -26,10 +26,11 @@ const ERC721Create = () => {
     });
 
     useEffect( () => {
+        console.log("in log")
         console.log("logs", process.env.PROJECT_ID);
         console.log("2", process.env.INFURA_SECRET_KEY);
     }, [])
-    
+
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
