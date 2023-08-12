@@ -11,7 +11,7 @@ import ReactLoading from "react-loading";
 const NFTMarket = () => {
     const navigate = useNavigate();
     const [nft, setNft] = useState([]);
-    const itemsPerPage = 9; // Number of items to display per page
+    const itemsPerPage = 1001;
     const [displayedData, setDisplayedData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
