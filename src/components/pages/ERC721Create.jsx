@@ -9,9 +9,9 @@ import Web3 from "web3";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 window.Buffer = Buffer;
-const PROJECT_ID = process.env.PROJECT_ID;
-const INFURA_KEY = process.env.INFURA_SECRET_KEY;
-const web3 = new Web3(Web3.givenProvider || process.env.API_URL);
+const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
+const INFURA_KEY = process.env.REACT_APP_INFURA_SECRET_KEY;
+const web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_API_URL);
 const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_KEY).toString("base64");
 
 const ERC721Create = () => {
@@ -24,12 +24,6 @@ const ERC721Create = () => {
             authorization,
         },
     });
-
-    useEffect( () => {
-        console.log("in log")
-        console.log("logs", process.env.PROJECT_ID);
-        console.log("2", process.env.INFURA_SECRET_KEY);
-    }, []);
 
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
@@ -58,7 +52,7 @@ const ERC721Create = () => {
         data.metaDataURI = metaDataURI;
 
         try {
-            const response = await axios.post(process.env.API_HOST + "/mintERC721", data, {
+            const response = await axios.post(process.env.REACT_APP_API_HOST + "/mintERC721", data, {
                 headers: {
                     "Content-Type": "application/json"
                 },

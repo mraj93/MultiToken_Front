@@ -24,7 +24,7 @@ const NFTMarket = () => {
     const getAllnfts = async () => {
         setIsLoading(true);
         try {
-            const res =await axios.get(process.env.API_HOST + "/getAllnfts");
+            const res =await axios.get(process.env.REACT_APP_API_HOST + "/getAllnfts");
             console.log("all nfts is here", res.data)
             setNft(res.data);
             setDisplayedData(res.data.data.slice(0, itemsPerPage));

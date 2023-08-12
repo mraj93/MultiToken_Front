@@ -10,23 +10,18 @@ import ERC1155Create from "./components/pages/ERC721Create";
 import NFTMarket from "./components/pages/NFTMarket";
 import GameTokenMarket from "./components/pages/GameTokenMarket";
 import NFTDetails from "./components/pages/NFTDetails";
-// import dotenv from 'dotenv';
-// dotenv.config();
 
 const App = () => {
     return (
         <Router>
             <Header />
             <Routes>
-
                 <Route path="/" element={<HomePage />} />
-
                 <Route path="/create/NFT" element={<ERC721Create />} />
                 <Route path="/create/ERC1155" element={<ERC1155Create />} />
-
-                {/*<Route path="/nftmarket" element={<NFTMarket />} />*/}
-                {/*<Route path="/gametokemarket" element={<GameTokenMarket />} />*/}
-                {/*<Route path="/nft/details/:tokenId" element={<NFTDetails />} />*/}
+                <Route path="/nftmarket" element={<NFTMarket />} />
+                <Route path="/gametokemarket" element={<GameTokenMarket />} />
+                <Route path="/nft/details/:tokenId" element={<NFTDetails />} />
             </Routes>
         </Router>
     );

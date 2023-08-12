@@ -10,7 +10,6 @@ import ReactLoading from "react-loading";
 
 const NFTDetail = () => {
     const { tokenId } = useParams();
-    console.log("tokenId is here", tokenId);
     const [isCopiedCreator, setIsCopiedCreator] = useState(false);
     const [isCopiedCurrent, setIsCopiedCurrent] = useState(false);
     const [detail, setDetail] = useState({});
@@ -49,7 +48,7 @@ const NFTDetail = () => {
 
     const NFTDetails = async (tokenId) => {
         setISLoading(true);
-        axios.get(process.env.API_HOST + `/NFTDetails/${tokenId}`)
+        axios.get(process.env.REACT_APP_API_HOST + `/NFTDetails/${tokenId}`)
             .then(res => {
                 console.log('Data:', res.data);
                 setDetail(res.data.data);
