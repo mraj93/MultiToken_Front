@@ -7,6 +7,7 @@ import axios from "axios";
 import Web3 from "web3";
 import ReactLoading from "react-loading";
 import {useNavigate} from "react-router-dom";
+import {log} from "@craco/craco/dist/lib/logger";
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -35,7 +36,10 @@ const HomePage = () => {
         setIsLoading(true);
         console.log("here")
         try {
+            console.log("in try1");
             const res = await axios.get(process.env.API_HOST + '/recentNFTs');
+            console.log("in try 2", process.env.API_HOST);
+            console.log("in try 2 /recentNFTs");
             console.log('all nfts is here', res.data);
             setNft(res.data.data);
         } catch (e) {
