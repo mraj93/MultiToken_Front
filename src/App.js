@@ -10,6 +10,8 @@ import ERC1155Create from "./components/pages/ERC721Create";
 import NFTMarket from "./components/pages/NFTMarket";
 import GameTokenMarket from "./components/pages/GameTokenMarket";
 import NFTDetails from "./components/pages/NFTDetails";
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const App = () => {
     return (

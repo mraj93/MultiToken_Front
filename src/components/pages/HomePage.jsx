@@ -40,7 +40,7 @@ const HomePage = () => {
             const res = await axios.get(process.env.API_HOST + '/recentNFTs');
             console.log("in try 2", process.env.API_HOST);
             console.log("in try 2", process.env.VERCEL_API_HOST);
-            console.log("Processed Environment Variables:", environmentVariables);
+            // console.log("Processed Environment Variables:", environmentVariables);
             console.log("in try 2 /recentNFTs");
             console.log('all nfts is here', res.data);
             setNft(res.data.data);
