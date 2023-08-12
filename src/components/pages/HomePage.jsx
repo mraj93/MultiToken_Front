@@ -25,6 +25,8 @@ const HomePage = () => {
         }
     };
 
+    console.log("in stagging");
+
     const handlePrevClick1 = () => {
         if (sliderRef.current) {
             setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
