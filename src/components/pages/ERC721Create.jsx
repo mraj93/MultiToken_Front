@@ -8,6 +8,8 @@ import {Buffer} from "buffer";
 import Web3 from "web3";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from 'react-redux';
+import handle from "../../redux/reducer/handle";
 window.Buffer = Buffer;
 const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
 const INFURA_KEY = process.env.REACT_APP_INFURA_SECRET_KEY;
@@ -24,13 +26,16 @@ const ERC721Create = () => {
             authorization,
         },
     });
-
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
         setImageFile(file);
     };
 
+    const getAddress = useSelector(state => state.address);
+    const getBalance = useSelector(state => state.balance);
+    console.log("address is:", getAddress);
+    console.log("address is:", getBalance);
     const submitData = async (data) => {
         setIsLoading(true);
 
@@ -47,9 +52,14 @@ const ERC721Create = () => {
         const metaDataJSON = await ipfs.add(Buffer.from(JSON.stringify(metadata)));
         let metaDataURI = `https://ipfs.io/ipfs/${metaDataJSON.path}`;
 
+        // const data = {
+        //     price : web3.utils.toWei(data.price, "ether")
+        // };
+
         data.price = web3.utils.toWei(data.price, "ether");
         data.nftURI = nftURI;
         data.metaDataURI = metaDataURI;
+        // data.userAddresss =
 
         try {
             const response = await axios.post(process.env.REACT_APP_API_HOST + "/mintERC721", data, {
