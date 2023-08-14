@@ -5,8 +5,11 @@ import {FaCopy, FaEthereum, FaUserCircle, FaPlus, FaSignOutAlt } from "react-ico
 import {ethers} from "ethers";
 import NexusLogo from '../images/Logo.png';
 import Metamasklogo from '../images/MetaMask_Fox.png.png';
+import { useDispatch } from "react-redux";
+import {addAddress, addBalance} from "../../redux/action";
 
 const Header = () => {
+    const dispatch = useDispatch();
     const [showOptions, setShowOptions] = useState(false);
     const [isConnected, setIsConnected] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
@@ -59,24 +62,34 @@ const Header = () => {
             const balance = await provider.getBalance(address);
             const formattedBalance =ethers.utils.formatEther(balance);
             setUserBalance(formattedBalance);
+            dispatch(addBalance(formattedBalance));
         }
         catch (e) {
             // console.error(e)
         }
     }
 
-    useEffect(() => {
+    useEffect( () => {
         const localStorageConnected = localStorage.getItem('isConnected') === 'true';
-        if (localStorageConnected) {
+         if (localStorageConnected) {
             const localStorageAddress = localStorage.getItem('address');
             setIsConnected(true);
             setUserAddress(localStorageAddress);
+            dispatch(addAddress(localStorageAddress));
         }
     }, []);
 
     useEffect( () => {
         handlefetchBalance();
     }, [address] )
+
+    // const sendAddress = () => {
+    //     console.log("1");
+    //     dispatch(addAddress(address));
+    //     console.log("=2");
+    // }
+    //
+    // sendAddress();
 
     const handleLogout = () => {
         setIsConnected(false);

@@ -215,7 +215,7 @@ const NFTDetail = () => {
                                     color="currentColor"
                                     style={{marginRight: "10px"}}
                                 />
-                                Look on Etherscan
+                                View on Etherscan
                             </Link>
                         </p>
                     </div>
