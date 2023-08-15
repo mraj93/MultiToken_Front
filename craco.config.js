@@ -24,8 +24,8 @@
 //     },
 // };
 
-const webpack = require('webpack');
-const dotenv = require('dotenv').config();
+// const webpack = require('webpack');
+// const dotenv = require('dotenv').config();
 
 // const environmentVariables = {};
 // for (const key in dotenv.parsed) {
