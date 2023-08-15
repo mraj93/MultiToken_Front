@@ -6,7 +6,7 @@ import {ethers} from "ethers";
 import NexusLogo from '../images/Logo.png';
 import Metamasklogo from '../images/MetaMask_Fox.png.png';
 import { useDispatch } from "react-redux";
-import {addAddress, addBalance} from "../../redux/action";
+import {addAddress, addBalance} from "../../redux/action/index";
 
 const Header = () => {
     const dispatch = useDispatch();
