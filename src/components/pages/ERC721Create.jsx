@@ -17,6 +17,9 @@ const web3 = new Web3(Web3.givenProvider || process.env.REACT_APP_API_URL);
 const authorization = "Basic " + Buffer.from(PROJECT_ID + ":" + INFURA_KEY).toString("base64");
 
 const ERC721Create = () => {
+    const getAddress = useSelector(state => state.address);
+    const getBalance = useSelector(state => state.balance);
+
     const { register, handleSubmit} = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
@@ -32,25 +35,35 @@ const ERC721Create = () => {
         setImageFile(file);
     };
 
-    const getAddress = useSelector(state => state.address);
-    const getBalance = useSelector(state => state.balance);
+
+
     console.log("address is:", getAddress);
-    console.log("address is:", getBalance);
+    // console.log("balance is:", getBalance);
+
+
     const submitData = async (data) => {
         setIsLoading(true);
-
+        console.log(data.nftName,data.description,data.price)
         if (!imageFile || !data.nftName || !data.description || !data.price) {
             setIsLoading(false);
             return;
         }
+
+        // if ( !data.nftName || !data.description || !data.price ) {
+        //     setIsLoading(false);
+        //     return;
+        // }
 
         const result = await ipfs.add(imageFile);
         const nftURI = `https://ipfs.io/ipfs/${result.path}`;
         const metadata = {
             name: data.nftName, description: data.description, image: nftURI
         };
+
         const metaDataJSON = await ipfs.add(Buffer.from(JSON.stringify(metadata)));
+
         let metaDataURI = `https://ipfs.io/ipfs/${metaDataJSON.path}`;
+
 
         // const data = {
         //     price : web3.utils.toWei(data.price, "ether")
@@ -59,7 +72,11 @@ const ERC721Create = () => {
         data.price = web3.utils.toWei(data.price, "ether");
         data.nftURI = nftURI;
         data.metaDataURI = metaDataURI;
-        // data.userAddresss =
+        console.log("getAddress is", getAddress);
+        data.userAddress = getAddress;
+
+
+        console.log("data", data);
 
         try {
             const response = await axios.post(process.env.REACT_APP_API_HOST + "/mintERC721", data, {
