@@ -9,7 +9,7 @@ import Web3 from "web3";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from 'react-redux';
-import handle from "../../redux/reducer/address";
+// import handle from "../../redux/reducer/address";
 window.Buffer = Buffer;
 const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
 const INFURA_KEY = process.env.REACT_APP_INFURA_SECRET_KEY;
