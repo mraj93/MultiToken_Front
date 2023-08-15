@@ -1,10 +1,22 @@
-import address from "./handle";
-import balance from "./balance";
-import { combineReducers } from 'redux'
+// import address from "./address";
+// import balance from "./balance";
+// import { combineReducers } from 'redux'
+//
+//  const rootReducers = combineReducers({
+//      address,
+//      balance
+// })
+//
+// export default rootReducers;
 
- const rootReducers = combineReducers({
-     address,
-     balance
-})
+import { combineReducers } from 'redux';
+import addressReducer from './address'; // Adjust the path as needed
+import balanceReducer from './balance'; // Adjust the path as needed
 
-export default rootReducers;
+const rootReducer = combineReducers({
+    address: addressReducer,
+    balance: balanceReducer,
+    // ...other reducers if you have more
+});
+
+export default rootReducer;
