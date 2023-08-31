@@ -49,6 +49,7 @@ const GameTokenMarket = () => {
       title: "NFT 4",
       owner: "User 2",
       price: "0.08 ETH",
+      checking_commit
     },
     {
       imageSrc:
